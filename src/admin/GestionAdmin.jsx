@@ -1,12 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router'
 
-export default function AdminDashboard() {
-  // const urlBase = "http://localhost:8080/api/v1/usuarios";
-
+export default function GestionAdmin() {
   return (
-    <div className='container'>
-        <h1>Admin Dashboard</h1>
-        <h3>Usuarios registrados</h3> 
+      <div className='container'>
+        <h3>Gestion usuarios</h3>
+    <div>
+         <Link to="/admin/usuarios/crear" className="btn btn-dark btn-sm me-3">Agregar usuario</Link>
+    </div>
     <table className="table table-striped table-bordered table-hover align-middle"> 
   <thead className='table-dark'>
     <tr>
@@ -35,6 +36,7 @@ export default function AdminDashboard() {
       <td>Doe</td>
       <td>@social</td>
     </tr>
+    
   </tbody>
 </table>
     </div>

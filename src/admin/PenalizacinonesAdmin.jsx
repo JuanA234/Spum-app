@@ -1,12 +1,9 @@
 import React from 'react'
 
-export default function AdminDashboard() {
-  // const urlBase = "http://localhost:8080/api/v1/usuarios";
-
+export default function PenalizacinonesAdmin() {
   return (
-    <div className='container'>
-        <h1>Admin Dashboard</h1>
-        <h3>Usuarios registrados</h3> 
+ <div className='container'>
+        <h3>Consultar penalizaciones</h3> 
     <table className="table table-striped table-bordered table-hover align-middle"> 
   <thead className='table-dark'>
     <tr>
