@@ -12,6 +12,13 @@ import GestionAdmin from "./admin/GestionAdmin";
 import PenalizacinonesAdmin from "./admin/PenalizacinonesAdmin";
 import AdminConfiguracion from "./admin/AdminConfiguracion";
 import Inicio from "./pages/Inicio";
+import Devolucion from "./auxiliar/Devolucion";
+import Main from "./auxiliar/Main";
+import Devolucion from "./auxiliar/Devolucion";
+import Historial from "./auxiliar/Historial";
+import Inventario from "./auxiliar/Inventario";
+import Penalizar from "./auxiliar/Penalizar";
+import Solicitudes from "./auxiliar/Solicitudes";
 
 function App() {
   return (
@@ -28,6 +35,14 @@ function App() {
             <Route path="/mis-penalizaciones" element={<MisPenalizaciones />} />
             <Route path="/detalle" element={<Detalle />} />
           </Route>
+
+            <Route path="/mainAuxiliar" element={<Main/>} />
+            <Route path="/devolucion" element={<Devolucion />} />
+            <Route path="/historial" element={<Historial />} />
+            <Route path="/inventario" element={<Inventario />} />
+            <Route path="/penalizar" element={<Penalizar />} />
+            <Route path="/solicitudes" element={<Solicitudes />} />
+
           <Route element={<SideBar />}>
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/usuarios" element={<GestionAdmin />} />
