@@ -1,35 +1,39 @@
-import { BrowserRouter, Route, Routes } from "react-router";
-import Index from './pages/Index';
-import Solicitud from './pages/Solicitud';
-import Juegos from './pages/Juegos';
-import MisPrestamos from './pages/misPrestamos';
-import MisPenalizaciones from './pages/MisPenalizaciones';
-import Detalle from './pages/Detalle';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Index from "./pages/Index";
+import Solicitud from "./pages/Solicitud";
+import Juegos from "./pages/Juegos";
+import MisPenalizaciones from "./pages/MisPenalizaciones";
+import Detalle from "./pages/Detalle";
 import AdminDashboard from "./admin/AdminDashboard";
-import Footer from "./components/footer";
-import SideBar from "./admin/plantilla/SideBar";
+import SideBar from "./admin/layout/SideBar";
 import GestionAdmin from "./admin/GestionAdmin";
-import PenalizacinonesAdmin from "./admin/PenalizacinonesAdmin";
+import PenalizacionesAdmin from "./admin/PenalizacinonesAdmin";
 import AdminConfiguracion from "./admin/AdminConfiguracion";
+import FooterLayout from "./layout/FooterLayout";
+import NavbarLayout from "./layout/NavbarLayout";
+import MisPrestamos from "./pages/MisPrestamos";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route element={<Footer />}>
-            <Route path="/" element={<Index />} />
-            <Route path="/solicitud" element={<Solicitud />} />
-            <Route path="/juegos" element={<Juegos />} />
-            <Route path="/mis-prestamos" element={<MisPrestamos />} />
-            <Route path="/mis-penalizaciones" element={<MisPenalizaciones />} />
-            <Route path="/detalle" element={<Detalle />} />
+          <Route path="/" element={<FooterLayout />}>
+            <Route index element={<Index />} />
+            <Route element={<NavbarLayout />}>
+              <Route path="solicitud" element={<Solicitud />} />
+              <Route path="juegos" element={<Juegos />} />
+              <Route path="prestamos" element={<MisPrestamos />} />
+              <Route path="penalizaciones" element={<MisPenalizaciones />} />
+              <Route path="detalle" element={<Detalle />} />
+            </Route>
           </Route>
-          <Route element={<SideBar />}>
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/usuarios" element={<GestionAdmin />} />
-            <Route path="/admin/penalizaciones" element={<PenalizacinonesAdmin />} />
-            <Route path="/admin/configuracion" element={<AdminConfiguracion />} />
+
+          <Route path="/admin" element={<SideBar />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="usuarios" element={<GestionAdmin />} />
+            <Route path="penalizaciones" element={<PenalizacionesAdmin />} />
+            <Route path="configuracion" element={<AdminConfiguracion />} />
           </Route>
         </Routes>
       </BrowserRouter>

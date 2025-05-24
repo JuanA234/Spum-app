@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "../index.css";
 import Footer from "../components/footer";
 
 export default function Detalle() {
@@ -27,7 +26,6 @@ export default function Detalle() {
         <p><strong>Duración:</strong> 60-90 minutos</p>
         <Link to="/mis-prestamos" className="btn">Solicitar Préstamo</Link>
       </section>
-        <Footer />
       </div>    
     );
 }

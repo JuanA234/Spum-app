@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "../index.css";
 import Footer from "../components/footer";
 
 export default function Juegos() {
@@ -53,7 +52,6 @@ export default function Juegos() {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
     );
 }

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import "../index.css";
 import Footer from "../components/footer";
 
 export default function SolicitarPrestamo() {
@@ -100,7 +99,6 @@ export default function SolicitarPrestamo() {
           </div>
         </form>
       </section>
-        <Footer />
     </div>
   );
 }

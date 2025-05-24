@@ -1,42 +1,37 @@
 import { Link } from "react-router-dom";
-import "../index.css";
-import Footer from "../components/footer";
 
 export default function MisPrestamos() {
   return (
-    <div>
-      <header>
-        <h1>
-          <span role="img" aria-label="Préstamo de Artículos">🎲</span>{" "}
-          Préstamo de Artículos
-        </h1>
-        <nav>
-          <ul>
-            <li><Link to="/inicio">Inicio</Link></li>
-            <li><Link to="/juegos">Juegos Disponibles</Link></li>
-            <li><Link to="/mis-prestamos">Mis Préstamos</Link></li>
-            <li><Link to="/mis-penalizaciones">Penalizaciones</Link></li>
-            <li><Link to="/">Cerrar Sesión</Link></li>
-          </ul>
-        </nav>
-      </header>
+   <div>  
+      {/* Contenido principal */}
+      <div className="container mt-5">
+        <h2 className="mb-4">Lista de Préstamos</h2>
+        <div className="row">
+          {/* Tarjeta 1 */}
+          <div className="col-md-6 col-lg-4 mb-4">
+            <div className="card shadow-sm h-100">
+              <div className="card-body">
+                <h5 className="card-title">Catan</h5>
+                <p className="card-text"><strong>Fecha de Préstamo:</strong> 12/03/2024</p>
+                <p className="card-text"><strong>Fecha de Devolución:</strong> 19/03/2024</p>
+              </div>
+            </div>
+          </div>
 
-      <section className="prestamos">
-        <h2>Lista de Préstamos</h2>
-        <div className="prestamos-container">
-          <div className="prestamo-card">
-            <h3>Catan</h3>
-            <p><strong>Fecha de Préstamo:</strong> 12/03/2024</p>
-            <p><strong>Fecha de Devolución:</strong> 19/03/2024</p>
+          {/* Tarjeta 2 */}
+          <div className="col-md-6 col-lg-4 mb-4">
+            <div className="card shadow-sm h-100">
+              <div className="card-body">
+                <h5 className="card-title">Monopoly</h5>
+                <p className="card-text"><strong>Fecha de Préstamo:</strong> 15/03/2024</p>
+                <p className="card-text"><strong>Fecha de Devolución:</strong> 22/03/2024</p>
+              </div>
+            </div>
           </div>
-          <div className="prestamo-card">
-            <h3>Monopoly</h3>
-            <p><strong>Fecha de Préstamo:</strong> 15/03/2024</p>
-            <p><strong>Fecha de Devolución:</strong> 22/03/2024</p>
-          </div>
+
+          {/* Agrega más tarjetas aquí si lo necesitas */}
         </div>
-      </section>
-      <Footer />
+      </div>
     </div>
   );
 }
