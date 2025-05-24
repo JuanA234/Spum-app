@@ -40,9 +40,13 @@ export default function HistorialPrestamos() {
 
   return (
     <div>
-      <header>
-        <h1>Consultar Historial de Préstamos</h1>
+      <header className="bg-dark text-white py-3">
+         <div className="container text-center">
+           <h1 className="m-0 text-white fw-bold">Consultar Historial de Préstamos</h1>
+         </div>
+       
       </header>
+      
       <div className="container">
         <div className="search-bar">
           <input
@@ -52,8 +56,8 @@ export default function HistorialPrestamos() {
             onChange={(e) => setSearchCode(e.target.value)}
           />
         </div>
-        <div className="table-container">
-          <table>
+        <div className="container">
+          <table className="table table-striped">
             <thead>
               <tr>
                 <th>Estudiante</th>
