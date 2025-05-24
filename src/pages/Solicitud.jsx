@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import "../index.css";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 
 export default function SolicitarPrestamo() {
   const [formData, setFormData] = useState({
