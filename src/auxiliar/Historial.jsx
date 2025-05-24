@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./historial.css";
 
 export default function HistorialPrestamos() {
   const [searchCode, setSearchCode] = useState("");

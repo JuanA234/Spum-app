@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./devolucion.css";
 
 export default function Devolucion() {
   const [returnRecords, setReturnRecords] = useState([]);

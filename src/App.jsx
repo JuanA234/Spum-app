@@ -12,6 +12,15 @@ import AdminConfiguracion from "./admin/AdminConfiguracion";
 import FooterLayout from "./layout/FooterLayout";
 import NavbarLayout from "./layout/NavbarLayout";
 import MisPrestamos from "./pages/MisPrestamos";
+import Inicio from "./pages/Inicio";
+import Main from "./auxiliar/Main";
+import Solicitudes from "./auxiliar/Solicitudes";
+import Penalizar from "./auxiliar/Penalizar";
+import Inventario from "./auxiliar/Inventario";
+import Devolucion from "./auxiliar/Devolucion";
+import Historial from "./auxiliar/Historial";
+
+
 
 function App() {
   return (
@@ -20,13 +29,23 @@ function App() {
         <Routes>
           <Route path="/" element={<FooterLayout />}>
             <Route index element={<Index />} />
+               <Route path="juegos" element={<Juegos />} />
             <Route element={<NavbarLayout />}>
               <Route path="solicitud" element={<Solicitud />} />
-              <Route path="juegos" element={<Juegos />} />
+              <Route path="inicio" element={<Inicio />} />
               <Route path="prestamos" element={<MisPrestamos />} />
               <Route path="penalizaciones" element={<MisPenalizaciones />} />
               <Route path="detalle" element={<Detalle />} />
             </Route>
+          </Route>
+
+          <Route path="/auxiliar">
+            <Route index element={<Main />} />
+            <Route path="solicitudes" element={<Solicitudes />} />
+            <Route path="penalizar" element={<Penalizar />} />
+            <Route path="inventario" element={<Inventario />} />
+            <Route path="devolucion" element={<Devolucion />} />
+            <Route path="historial" element={<Historial/>} />
           </Route>
 
           <Route path="/admin" element={<SideBar />}>

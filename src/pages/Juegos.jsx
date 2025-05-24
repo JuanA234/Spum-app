@@ -13,7 +13,7 @@ export default function Juegos() {
           <ul className="nav-list">
             <li><Link to="/inicio">Inicio</Link></li>
             <li><Link to="/juegos">Juegos Disponibles</Link></li>
-            <li><Link to="/mis-prestamos">Mis Préstamos</Link></li>
+            <li><Link to="/prestamos">Mis Préstamos</Link></li>
             <li className="search-container">
               <input
                 type="text"

@@ -1,5 +1,4 @@
 import React from "react";
-import "./inventario.css";
 
 export default function DashboardInventario() {
   const juegos = [

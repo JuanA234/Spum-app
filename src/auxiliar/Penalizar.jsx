@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./penalizar.css";
 
 export default function Penalizar() {
   const [codigo, setCodigo] = useState("");

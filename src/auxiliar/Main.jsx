@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./styles.css";
 
 export default function MainAuxiliar() {
   return (
@@ -19,17 +18,20 @@ export default function MainAuxiliar() {
         <div className="actions-container">
           <h2>ACCIONES</h2>
           <div className="actions-content">
-            <Link to="/solicitudes">
+            <Link to="solicitudes">
               <button>VER SOLICITUDES DE PRESTAMOS</button>
             </Link>
-            <Link to="/penalizar">
+            <Link to="penalizar">
               <button>PENALIZAR USUARIO</button>
             </Link>
-            <Link to="/inventario">
+            <Link to="inventario">
               <button>INVENTARIO</button>
             </Link>
-            <Link to="/devolucion">
+            <Link to="devolucion">
               <button>REGISTRAR DEVOLUCION</button>
+            </Link>
+             <Link to="historial">
+              <button>HISTORIAL DE PRESTAMOS</button>
             </Link>
           </div>
         </div>

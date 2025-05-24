@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./solicitudes.css";
 
 export default function Solicitudes() {
   const [visibleOptions, setVisibleOptions] = useState(null);
