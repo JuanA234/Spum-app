@@ -22,7 +22,6 @@ import Historial from "./auxiliar/Historial";
 import Login from "./auth/Login";
 import Registrar from "./auth/Registrar";
 
-
 function App() {
   return (
     <>
@@ -32,9 +31,9 @@ function App() {
             <Route index element={<Index />} />
             <Route path="login" element={<Login />} />
             <Route path="registro" element={<Registrar />} />
-               <Route path="juegos" element={<Juegos />} />
+            <Route path="juegos" element={<Juegos />} />
+            <Route path="solicitud" element={<Solicitud />} />
             <Route element={<NavbarLayout />}>
-              <Route path="solicitud" element={<Solicitud />} />
               <Route path="inicio" element={<Inicio />} />
               <Route path="prestamos" element={<MisPrestamos />} />
               <Route path="penalizaciones" element={<MisPenalizaciones />} />
@@ -48,7 +47,7 @@ function App() {
             <Route path="penalizar" element={<Penalizar />} />
             <Route path="inventario" element={<Inventario />} />
             <Route path="devolucion" element={<Devolucion />} />
-            <Route path="historial" element={<Historial/>} />
+            <Route path="historial" element={<Historial />} />
           </Route>
 
           <Route path="/admin" element={<SideBar />}>
