@@ -34,7 +34,7 @@ export default function Login() {
         setSuccess(response.data.message);
         localStorage.setItem("token", response.data.token);
         setTimeout(() => {
-          navegacion("/admin");
+          navegacion("/inicio");
         }, 1000);
       } else {
         setError(response.data.message || "Error al iniciar sesión");

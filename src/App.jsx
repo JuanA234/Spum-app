@@ -19,7 +19,8 @@ import Penalizar from "./auxiliar/Penalizar";
 import Inventario from "./auxiliar/Inventario";
 import Devolucion from "./auxiliar/Devolucion";
 import Historial from "./auxiliar/Historial";
-
+import Login from "./auth/Login";
+import Registrar from "./auth/Registrar";
 
 
 function App() {
@@ -29,6 +30,8 @@ function App() {
         <Routes>
           <Route path="/" element={<FooterLayout />}>
             <Route index element={<Index />} />
+            <Route path="login" element={<Login />} />
+            <Route path="registro" element={<Registrar />} />
                <Route path="juegos" element={<Juegos />} />
             <Route element={<NavbarLayout />}>
               <Route path="solicitud" element={<Solicitud />} />
