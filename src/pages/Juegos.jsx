@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/footer";
+import LogoutButton from "../components/LogoutButton";
 
 export default function Juegos() {
   return (
@@ -36,9 +37,7 @@ export default function Juegos() {
                 </button>
               </form>
               <li className="nav-item">
-                <Link to="/" className="nav-link">
-                  Cerrar Sesión
-                </Link>
+                <LogoutButton />
               </li>
             </ul>
           </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import LoggoutButton from './LogoutButton.jsx'
 
 export default function Navbar() {
   return (
@@ -23,7 +24,7 @@ export default function Navbar() {
                 <Link to="/penalizaciones" className="nav-link">Penalizaciones</Link>
               </li>
               <li className="nav-item">
-                <Link to="/" className="nav-link">Cerrar Sesión</Link>
+                <LoggoutButton />
               </li>
             </ul>
           </div>

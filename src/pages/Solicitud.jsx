@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Footer from "../components/footer";
+import LogoutButton from "../components/LogoutButton";
 
 export default function SolicitarPrestamo() {
   const [formData, setFormData] = useState({
@@ -50,9 +51,7 @@ export default function SolicitarPrestamo() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/" className="nav-link">
-                  Cerrar Sesión
-                </Link>
+              <LogoutButton/>
               </li>
             </ul>
           </div>
