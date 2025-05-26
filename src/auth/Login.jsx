@@ -1,9 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import useAuth from "./hooks/useAuth";
 
 export default function Login() {
-  let navegacion = useNavigate();
+  const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/inicio";
 
   const [estudiante, setEstudiante] = useState({
     email: "",
@@ -27,14 +32,29 @@ export default function Login() {
     setError("");
     setSuccess("");
 
+    if (!email || !password) {
+      setError("Debe completar todos los campos.");
+      return;
+    }
+
     try {
       const response = await axios.post(urlBase, estudiante);
 
       if (response.status === 200) {
-        setSuccess(response.data.message);
-        localStorage.setItem("token", response.data.token);
+        setSuccess("Inicio de sesión exitoso");
+        const accessToken = response.data.token;
+        const role = response.data.role;
+
+        // Guarda en el contexto
+        setAuth({ role, accessToken });
+
+        // Guarda en localStorage
+        localStorage.setItem("token", accessToken);
+        localStorage.setItem("role", role);
+
+        // Redirige a la ruta original
         setTimeout(() => {
-          navegacion("/inicio");
+          navigate(from, { replace: true });
         }, 1000);
       } else {
         setError(response.data.message || "Error al iniciar sesión");
@@ -58,6 +78,7 @@ export default function Login() {
         <div className="col-12 col-sm-8 col-md-6 col-lg-4">
           <div className="card p-4 shadow">
             <h3 className="text-center mb-4">Iniciar sesión</h3>
+
             {error && (
               <div className="alert alert-danger" role="alert">
                 {error}
@@ -69,7 +90,8 @@ export default function Login() {
                 {success}
               </div>
             )}
-            <form>
+
+            <form onSubmit={handleLogin}>
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">
                   Email
@@ -79,13 +101,14 @@ export default function Login() {
                   className="form-control"
                   id="email"
                   name="email"
-                  required={true}
+                  autoComplete="username"
+                  required
                   value={email}
-                  onChange={(e) => onInputChange(e)}
+                  onChange={onInputChange}
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="contrasena" className="form-label">
+                <label htmlFor="password" className="form-label">
                   Password
                 </label>
                 <input
@@ -93,12 +116,13 @@ export default function Login() {
                   className="form-control"
                   id="password"
                   name="password"
-                  required={true}
+                  autoComplete="current-password"
+                  required
                   value={password}
-                  onChange={(e) => onInputChange(e)}
+                  onChange={onInputChange}
                 />
               </div>
-              <button type="submit" className="btn btn-success" onClick={handleLogin}>
+              <button type="submit" className="btn btn-success w-100">
                 Iniciar sesión
               </button>
             </form>
