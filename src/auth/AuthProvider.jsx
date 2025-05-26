@@ -1,18 +1,23 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const accessToken = localStorage.getItem("token");
     const role = localStorage.getItem("role");
 
-    if (token && role) {
-      setAuth({ role, accessToken: token });
+    if (accessToken && role) {
+      setAuth({ accessToken, role });
     }
+
+    setLoading(false); // Marca como cargado
   }, []);
+
+  if (loading) return null; // también puedes mostrar un spinner si prefieres
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>

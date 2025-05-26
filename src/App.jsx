@@ -27,8 +27,6 @@ import NotFound from "./components/NotFound";
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
         <Routes>
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
           <Route path="*" element={<NotFound />} /> {/* Ruta comodín */}
@@ -37,7 +35,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="registro" element={<Registrar />} />
             {/* Estas son las rutas que queremos proteger */}
-            <Route element={<RequireAuth />}>
+            <Route element={<RequireAuth allowedRoles={["STUDENT"]} />}>
               <Route path="juegos" element={<Juegos />} />
               <Route path="solicitud" element={<Solicitud />} />
               <Route element={<NavbarLayout />}>
@@ -48,8 +46,8 @@ function App() {
               </Route>
             </Route>
           </Route>
-           {/* mas rutas a proteger */}
-          <Route element={<RequireAuth />}>
+          {/* mas rutas a proteger */}
+          <Route element={<RequireAuth allowedRoles={["ASSISTANT"]} />}>
             <Route path="/auxiliar">
               <Route index element={<Main />} />
               <Route path="solicitudes" element={<Solicitudes />} />
@@ -58,6 +56,8 @@ function App() {
               <Route path="devolucion" element={<Devolucion />} />
               <Route path="historial" element={<Historial />} />
             </Route>
+          </Route>
+          <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
             <Route path="/admin" element={<SideBar />}>
               <Route index element={<AdminDashboard />} />
               <Route path="usuarios" element={<GestionAdmin />} />
@@ -66,8 +66,6 @@ function App() {
             </Route>
           </Route>
         </Routes>
-      </BrowserRouter>
-    </>
   );
 }
 

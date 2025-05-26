@@ -27,48 +27,62 @@ export default function Login() {
   };
 
   const handleLogin = async (event) => {
-    event.preventDefault();
-    const urlBase = "http://localhost:8080/auth/login";
-    setError("");
-    setSuccess("");
+  event.preventDefault();
+  const urlBase = "http://localhost:8080/auth/login";
+  setError("");
+  setSuccess("");
 
-    if (!email || !password) {
-      setError("Debe completar todos los campos.");
-      return;
-    }
+  if (!email || !password) {
+    setError("Debe completar todos los campos.");
+    return;
+  }
 
-    try {
-      const response = await axios.post(urlBase, estudiante);
+  try {
+    const response = await axios.post(urlBase, estudiante);
 
-      if (response.status === 200) {
-        setSuccess("Inicio de sesión exitoso");
-        const accessToken = response.data.token;
-        const role = response.data.role;
+    if (response.status === 200) {
+      setSuccess("Inicio de sesión exitoso");
+      const accessToken = response.data.token;
+      const role = response.data.role;
 
-        // Guarda en el contexto
-        setAuth({ role, accessToken });
+      setAuth({ accessToken, role }); // Actualiza el contexto de autenticación
+      // Almacenar el token y el rol en localStorage
 
-        // Guarda en localStorage
-        localStorage.setItem("token", accessToken);
-        localStorage.setItem("role", role);
+      localStorage.setItem("token", accessToken);
+      localStorage.setItem("role", role);
 
-        // Redirige a la ruta original
-        setTimeout(() => {
-          navigate(from, { replace: true });
-        }, 1000);
-      } else {
-        setError(response.data.message || "Error al iniciar sesión");
+      // Redirigir según el rol
+      let targetRoute = ""; // ruta por defecto
+
+      switch (role) {
+        case "ADMIN":
+          targetRoute = "/admin";
+          break;
+        case "STUDENT":
+          targetRoute = "/inicio";
+          break;
+        case "ASSISTANT":
+          targetRoute = "/auxiliar";
+          break;
+        default:
+          targetRoute = from; // vuelve a la ruta original si no se reconoce el rol
       }
-    } catch (err) {
-      if (err.response?.data?.message) {
-        setError(err.response.data.message);
-      } else {
-        setError("Error en el inicio de sesión, por favor intente más tarde");
-      }
-      console.error("Error detallado:", err);
-    }
-  };
 
+      setTimeout(() => {
+        navigate(targetRoute, { replace: true });
+      }, 1000);
+    } else {
+      setError(response.data.message || "Error al iniciar sesión");
+    }
+  } catch (err) {
+    if (err.response?.data?.message) {
+      setError(err.response.data.message);
+    } else {
+      setError("Error en el inicio de sesión, por favor intente más tarde");
+    }
+    console.error("Error detallado:", err);
+  }
+};
   return (
     <div className="container">
       <div
