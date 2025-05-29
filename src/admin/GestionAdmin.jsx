@@ -4,9 +4,9 @@ import { Link } from "react-router";
 
 export default function GestionAdmin() {
   const urlBase = "http://localhost:8080/users";
+  const urlStudent = "http://localhost:8080/students";
 
   const [usuarios, setUsuarios] = useState([]);
-
 
   const handleSelectRole = async (userId, selectedRole) => {
     try {
@@ -59,17 +59,24 @@ export default function GestionAdmin() {
     }
   };
 
-  const eliminarUsuario = async (id) => {
+  const eliminarUsuario = async (id, role, email) => {
     if (!window.confirm("¿Estás seguro de que deseas eliminar este usuario?"))
       return;
 
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`${urlBase}/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      if (role == "STUDENT") {
+          await axios.delete(`${urlStudent}/${email}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }
+        await axios.delete(`${urlBase}/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
       // Filtrar el usuario eliminado sin recargar todo
       setUsuarios(usuarios.filter((usuario) => usuario.id !== id));
@@ -138,7 +145,9 @@ export default function GestionAdmin() {
                     <li>
                       <button
                         className="dropdown-item"
-                        onClick={() => handleSelectRole(usuario.id, "ASSISTANT")}
+                        onClick={() =>
+                          handleSelectRole(usuario.id, "ASSISTANT")
+                        }
                       >
                         Auxiliar
                       </button>
@@ -147,7 +156,7 @@ export default function GestionAdmin() {
                 </div>
 
                 <button
-                  onClick={() => eliminarUsuario(usuario.id)}
+                  onClick={() => eliminarUsuario(usuario.id, usuario.role, usuario.email)}
                   className="btn btn-danger btn-sm"
                 >
                   Eliminar
