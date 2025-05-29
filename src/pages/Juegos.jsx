@@ -184,7 +184,10 @@ export default function Juegos() {
                     <div className="card-body">
                       <h3 className="card-title">{item.itemName}</h3>
                       <p className="card-text">{item.itemDescription}</p>
-                      <Link to="/solicitud" className="btn btn-primary">
+                      <Link
+                        to={`/detalle/${item.itemId}`}
+                        className="btn btn-primary"
+                      >
                         Ver Detalles
                       </Link>
                     </div>
