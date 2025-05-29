@@ -14,7 +14,7 @@ export default function Registrar() {
     studentCollegeId: "",
   });
 
-  const { firstName, lastName, email, password, studentCollegeId } = estudiante;
+  const {userName , userLastName, email, password, studentCollegeId } = estudiante;
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -35,7 +35,7 @@ export default function Registrar() {
     try {
       const response = await axios.post(urlBase,estudiante);
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         setSuccess(response.data.message);
         setTimeout(() => {
           navegacion("/login");
@@ -81,10 +81,10 @@ export default function Registrar() {
                 <input
                   type="text"
                   className="form-control"
-                  id="firstName"
-                  name="firstName"
+                  id="userName"
+                  name="userName"
                   required={true}
-                  value={firstName} onChange={(e)=>onInputChange(e)}
+                  value={userName} onChange={(e)=>onInputChange(e)}
                 />
               </div>
               <div className="mb-3">
@@ -94,10 +94,10 @@ export default function Registrar() {
                 <input
                   type="text"
                   className="form-control"
-                  id="lastName"
-                  name="lastName"
+                  id="userLastName"
+                  name="userLastName"
                   required={true}
-                  value={lastName} onChange={(e)=>onInputChange(e)}
+                  value={userLastName} onChange={(e)=>onInputChange(e)}
                 />
               </div>
               <div className="mb-3">

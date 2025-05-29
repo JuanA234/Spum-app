@@ -24,47 +24,52 @@ import Registrar from "./auth/Registrar";
 import RequireAuth from "./auth/RequireAuth";
 import UnauthorizedPage from "./components/UnauthorizedPage";
 import NotFound from "./components/NotFound";
+import RegisterUser from "./auth/admin/RegisterUser";
 
 function App() {
   return (
-        <Routes>
-          <Route path="/unauthorized" element={<UnauthorizedPage />} />
-          <Route path="*" element={<NotFound />} /> {/* Ruta comodín */}
-          <Route path="/" element={<FooterLayout />}>
-            <Route index element={<Index />} />
-            <Route path="login" element={<Login />} />
-            <Route path="registro" element={<Registrar />} />
-            {/* Estas son las rutas que queremos proteger */}
-            <Route element={<RequireAuth allowedRoles={["STUDENT"]} />}>
-              <Route path="juegos" element={<Juegos />} />
-              <Route path="solicitud" element={<Solicitud />} />
-              <Route element={<NavbarLayout />}>
-                <Route path="inicio" element={<Inicio />} />
-                <Route path="prestamos" element={<MisPrestamos />} />
-                <Route path="penalizaciones" element={<MisPenalizaciones />} />
-                <Route path="detalle" element={<Detalle />} />
-              </Route>
-            </Route>
+    <Routes>
+      <Route path="/unauthorized" element={<UnauthorizedPage />} />
+      <Route path="*" element={<NotFound />} /> {/* Ruta comodín */}
+      <Route path="/" element={<FooterLayout />}>
+        <Route index element={<Index />} />
+        <Route path="login" element={<Login />} />
+        <Route path="registro" element={<Registrar />} />
+        {/* Estas son las rutas que queremos proteger */}
+        <Route element={<RequireAuth allowedRoles={["STUDENT"]} />}>
+          <Route path="juegos" element={<Juegos />} />
+          <Route path="solicitud" element={<Solicitud />} />
+          <Route element={<NavbarLayout />}>
+            <Route path="inicio" element={<Inicio />} />
+            <Route path="prestamos" element={<MisPrestamos />} />
+            <Route path="penalizaciones" element={<MisPenalizaciones />} />
+            <Route path="detalle" element={<Detalle />} />
           </Route>
-          {/* mas rutas a proteger */}
-          
-            <Route path="/auxiliar">
-              <Route index element={<Main />} />
-              <Route path="solicitudes" element={<Solicitudes />} />
-              <Route path="penalizar" element={<Penalizar />} />
-              <Route path="inventario" element={<Inventario />} />
-              <Route path="devolucion" element={<Devolucion />} />
-              <Route path="historial" element={<Historial />} />
-          </Route>
-          <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
-            <Route path="/admin" element={<SideBar />}>
-              <Route index element={<AdminDashboard />} />
-              <Route path="usuarios" element={<GestionAdmin />} />
-              <Route path="penalizaciones" element={<PenalizacionesAdmin />} />
-              <Route path="configuracion" element={<AdminConfiguracion />} />
-            </Route>
-          </Route>
-        </Routes>
+        </Route>
+      </Route>
+      {/* mas rutas a proteger */}
+      <Route path="/auxiliar">
+        <Route index element={<Main />} />
+        <Route path="solicitudes" element={<Solicitudes />} />
+        <Route path="penalizar" element={<Penalizar />} />
+        <Route path="inventario" element={<Inventario />} />
+        <Route path="devolucion" element={<Devolucion />} />
+        <Route path="historial" element={<Historial />} />
+      </Route>
+      <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
+        <Route path="/admin" element={<SideBar />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="usuarios" element={<GestionAdmin />} />
+          <Route path="penalizaciones" element={<PenalizacionesAdmin />} />
+          <Route path="configuracion" element={<AdminConfiguracion />} />
+        </Route>
+      </Route>
+      <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
+        <Route path="/admin/usuarios">
+          <Route path="crear" element={<RegisterUser/>} />
+        </Route>
+      </Route>
+    </Routes>
   );
 }
 
