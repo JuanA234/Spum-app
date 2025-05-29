@@ -7,6 +7,31 @@ export default function GestionAdmin() {
 
   const [usuarios, setUsuarios] = useState([]);
 
+
+  const handleSelectRole = async (userId, selectedRole) => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.put(
+        `${urlBase}/${userId}`,
+        { role: selectedRole },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(`Rol de usuario ${userId} actualizado a ${selectedRole}`);
+      cargarUsuarios(); // recarga la tabla
+    } catch (error) {
+      console.error(
+        "Error al actualizar rol:",
+        error.response?.data || error.message
+      );
+      alert("No se pudo actualizar el rol.");
+    }
+  };
+
   useEffect(() => {
     cargarUsuarios();
   }, []);
@@ -35,28 +60,29 @@ export default function GestionAdmin() {
   };
 
   const eliminarUsuario = async (id) => {
-    if (!window.confirm("¿Estás seguro de que deseas eliminar este usuario?")) return;
+    if (!window.confirm("¿Estás seguro de que deseas eliminar este usuario?"))
+      return;
 
-  try {
-    const token = localStorage.getItem("token");
-    await axios.delete(`${urlBase}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`${urlBase}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    // Filtrar el usuario eliminado sin recargar todo
-    setUsuarios(usuarios.filter((usuario) => usuario.id !== id));
-  } catch (error) {
-    if (error.response) {
-      console.error("Error de respuesta:", error.response.data);
-    } else if (error.request) {
-      console.error("No se recibió respuesta:", error.request);
-    } else {
-      console.error("Error al configurar la petición:", error.message);
+      // Filtrar el usuario eliminado sin recargar todo
+      setUsuarios(usuarios.filter((usuario) => usuario.id !== id));
+    } catch (error) {
+      if (error.response) {
+        console.error("Error de respuesta:", error.response.data);
+      } else if (error.request) {
+        console.error("No se recibió respuesta:", error.request);
+      } else {
+        console.error("Error al configurar la petición:", error.message);
+      }
+      alert("Error al eliminar el usuario");
     }
-    alert("Error al eliminar el usuario");
-  }
   };
 
   return (
@@ -90,16 +116,42 @@ export default function GestionAdmin() {
               <td>{usuario.email}</td>
               <td>{usuario.role}</td>
               <td className="text-center">
-                <div>
+                <div className="dropdown d-inline">
                   <button
-                    onClick={() => {
-                      eliminarUsuario(usuario.id);
-                    }}
-                    className="btn btn-danger btn-sm"
+                    type="button"
+                    className="btn btn-primary dropdown-toggle btn-sm me-2"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
                   >
-                    Eliminar
+                    Editar Rol
                   </button>
+
+                  <ul className="dropdown-menu">
+                    <li>
+                      <button
+                        className="dropdown-item"
+                        onClick={() => handleSelectRole(usuario.id, "STUDENT")}
+                      >
+                        Estudiante
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        className="dropdown-item"
+                        onClick={() => handleSelectRole(usuario.id, "ASSISTANT")}
+                      >
+                        Auxiliar
+                      </button>
+                    </li>
+                  </ul>
                 </div>
+
+                <button
+                  onClick={() => eliminarUsuario(usuario.id)}
+                  className="btn btn-danger btn-sm"
+                >
+                  Eliminar
+                </button>
               </td>
             </tr>
           ))}
