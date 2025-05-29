@@ -46,15 +46,15 @@ function App() {
             <Route path="detalle" element={<Detalle />} />
           </Route>
         </Route>
-      </Route>
-      {/* mas rutas a proteger */}
-      <Route path="/auxiliar">
-        <Route index element={<Main />} />
-        <Route path="solicitudes" element={<Solicitudes />} />
-        <Route path="penalizar" element={<Penalizar />} />
-        <Route path="inventario" element={<Inventario />} />
-        <Route path="devolucion" element={<Devolucion />} />
-        <Route path="historial" element={<Historial />} />
+        {/* mas rutas a proteger */}
+        <Route path="/auxiliar" allowedRoles={["ASSISTANT"]}>
+          <Route index element={<Main />} />
+          <Route path="solicitudes" element={<Solicitudes />} />
+          <Route path="penalizar" element={<Penalizar />} />
+          <Route path="inventario" element={<Inventario />} />
+          <Route path="devolucion" element={<Devolucion />} />
+          <Route path="historial" element={<Historial />} />
+        </Route>
       </Route>
       <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
         <Route path="/admin" element={<SideBar />}>
@@ -66,7 +66,7 @@ function App() {
       </Route>
       <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
         <Route path="/admin/usuarios">
-          <Route path="crear" element={<RegisterUser/>} />
+          <Route path="crear" element={<RegisterUser />} />
         </Route>
       </Route>
     </Routes>
