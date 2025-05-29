@@ -47,7 +47,7 @@ function App() {
             </Route>
           </Route>
           {/* mas rutas a proteger */}
-          <Route element={<RequireAuth allowedRoles={["ASSISTANT"]} />}>
+          
             <Route path="/auxiliar">
               <Route index element={<Main />} />
               <Route path="solicitudes" element={<Solicitudes />} />
@@ -55,7 +55,6 @@ function App() {
               <Route path="inventario" element={<Inventario />} />
               <Route path="devolucion" element={<Devolucion />} />
               <Route path="historial" element={<Historial />} />
-            </Route>
           </Route>
           <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
             <Route path="/admin" element={<SideBar />}>

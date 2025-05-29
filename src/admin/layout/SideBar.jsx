@@ -1,13 +1,14 @@
 import React from "react";
 import { Link, Outlet } from "react-router";
+import LogoutButton from "../../components/LogoutButton";
 
 export default function SideBar() {
   return (
       <div className="container-fluid">
       <div className="row">
         {/* Sidebar */}
-        <nav className="col-md-3 col-lg-2 d-md-block text-white sidebar p-3 min-vh-100" style={{ backgroundColor: '#2c3e50' }}>
-          <h4 className="text-white">Admin panel</h4>
+        <nav className="col-md-3 col-lg-2 d-md-block text-white sidebar p-3 min-vh-100 bg-primary">
+          <h4 className="text-white">🎲 SPUM</h4>
           <ul className="nav flex-column">
             <li className="nav-item">
               <Link to="/admin" className="nav-link text-white">Inicio</Link>
@@ -22,7 +23,7 @@ export default function SideBar() {
               <Link to="/admin/configuracion" className="nav-link text-white">Configuracion</Link>
             </li>
              <li className="nav-item">
-              <Link to="/admin" className="nav-link text-white">Volver</Link>
+              <LogoutButton />
             </li>
           </ul>
         </nav>

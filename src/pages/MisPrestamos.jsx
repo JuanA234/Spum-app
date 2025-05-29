@@ -1,36 +1,53 @@
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function MisPrestamos() {
+  const urlBase = "http://localhost:8080/bookings";
+  const [prestamos, setPrestamos] = useState([]);
+
+  useEffect(() => {
+    cargarPrestamos();
+  }, []);
+
+  const cargarPrestamos = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(urlBase, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("Resultado de cargarPrestamos:", response.data);
+      setPrestamos(response.data);
+    } catch (error) {
+      console.error("Error al cargar préstamos:", error);
+    }
+  };
+
   return (
-   <div>  
-      {/* Contenido principal */}
-      <div className="container mt-5">
-        <h2 className="mb-4">Lista de Préstamos</h2>
-        <div className="row">
-          {/* Tarjeta 1 */}
-          <div className="col-md-6 col-lg-4 mb-4">
+    <div className="container mt-5">
+      <h2 className="mb-4">Lista de Préstamos</h2>
+      <div className="row">
+        {prestamos.map((prestamo, index) => (
+          <div key={index} className="col-md-6 col-lg-4 mb-4">
             <div className="card shadow-sm h-100">
               <div className="card-body">
-                <h5 className="card-title">Catan</h5>
-                <p className="card-text"><strong>Fecha de Préstamo:</strong> 12/03/2024</p>
-                <p className="card-text"><strong>Fecha de Devolución:</strong> 19/03/2024</p>
+                <h5 className="card-title">{prestamo.item}</h5>
+                <p className="card-text">
+                  <strong>Usuario:</strong> {prestamo.userName}
+                </p>
+                <p className="card-text">
+                  <strong>Fecha de Préstamo:</strong>{" "}
+                  {new Date(prestamo.startTime).toLocaleString()}
+                </p>
+                <p className="card-text">
+                  <strong>Fecha de Devolución:</strong>{" "}
+                  {new Date(prestamo.endTime).toLocaleString()}
+                </p>
               </div>
             </div>
           </div>
-
-          {/* Tarjeta 2 */}
-          <div className="col-md-6 col-lg-4 mb-4">
-            <div className="card shadow-sm h-100">
-              <div className="card-body">
-                <h5 className="card-title">Monopoly</h5>
-                <p className="card-text"><strong>Fecha de Préstamo:</strong> 15/03/2024</p>
-                <p className="card-text"><strong>Fecha de Devolución:</strong> 22/03/2024</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Agrega más tarjetas aquí si lo necesitas */}
-        </div>
+        ))}
       </div>
     </div>
   );
