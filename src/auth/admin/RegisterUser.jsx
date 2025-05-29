@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function RegisterUser() {
+  const urlBase = "http://localhost:8080/users";
   let navegacion = useNavigate();
 
   const [usuario, setUsuario] = useState({
@@ -27,7 +28,7 @@ export default function RegisterUser() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    const urlBase = "http://localhost:8080/auth/register-user";
+    
     setError("");
     setSuccess("");
 
@@ -142,7 +143,6 @@ export default function RegisterUser() {
                   onChange={onInputChange}
                 >
                   <option value="">Seleccione un rol</option>
-                  <option value="ADMIN">Admin</option>
                   <option value="STUDENT">Estudiante</option>
                   <option value="ASSISTANT">Auxiliar</option>
                 </select>
