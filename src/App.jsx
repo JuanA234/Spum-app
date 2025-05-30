@@ -35,11 +35,11 @@ function App() {
         <Route index element={<Index />} />
         <Route path="login" element={<Login />} />
         <Route path="registro" element={<Registrar />} />
-        <Route path="/detalle/:id" element={<Detalle />} />
+        <Route path="detalle/:id" element={<Detalle />} />
         {/* Estas son las rutas que queremos proteger */}
         <Route element={<RequireAuth allowedRoles={["STUDENT"]} />}>
           <Route path="juegos" element={<Juegos />} />
-          <Route path="solicitud" element={<Solicitud />} />
+          <Route path="solicitud/:id" element={<Solicitud />} />
           <Route element={<NavbarLayout />}>
             <Route path="inicio" element={<Inicio />} />
             <Route path="prestamos" element={<MisPrestamos />} />

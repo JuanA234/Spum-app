@@ -44,12 +44,14 @@ export default function Login() {
       setSuccess("Inicio de sesión exitoso");
       const accessToken = response.data.token;
       const role = response.data.role;
+      const email = response.data.email;
 
-      setAuth({ accessToken, role }); // Actualiza el contexto de autenticación
+      setAuth({ accessToken, role, email }); // Actualiza el contexto de autenticación
       // Almacenar el token y el rol en localStorage
 
       localStorage.setItem("token", accessToken);
       localStorage.setItem("role", role);
+      localStorage.setItem("email", email);
 
       // Redirigir según el rol
       let targetRoute = ""; // ruta por defecto

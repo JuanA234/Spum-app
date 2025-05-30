@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+
 export default function MisPrestamos() {
   const urlBase = "http://localhost:8080/bookings";
   const [prestamos, setPrestamos] = useState([]);
@@ -12,7 +13,8 @@ export default function MisPrestamos() {
   const cargarPrestamos = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(urlBase, {
+      const email = localStorage.getItem("email");
+      const response = await axios.get(`${urlBase}/student?email=${email}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

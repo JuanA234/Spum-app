@@ -80,7 +80,7 @@ export default function Detalle() {
                     <p className="card-text">
                       <strong>Tipo: </strong>{item.itemType?.itemTypeName}
                     </p>
-                    <Link to="/solicitud" className="btn btn-outline-primary mt-3">
+                    <Link to={`/solicitud/${item.itemId}`} className="btn btn-outline-primary mt-3">
                       Solicitar Préstamo
                     </Link>
                   </div>

@@ -8,6 +8,7 @@ export default function LogoutButton() {
     setAuth({}); // limpia el contexto
     localStorage.removeItem("token");
     localStorage.removeItem("role");
+    localStorage.removeItem("email");
   };
 
   return (

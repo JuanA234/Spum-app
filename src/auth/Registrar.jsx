@@ -7,8 +7,8 @@ export default function Registrar() {
   let navegacion = useNavigate();
 
   const [estudiante, setEstudiante] = useState({
-    firstName: "",
-    lastName: "",
+    userName: "",
+    userLastName: "",
     email: "",
     password: "",
     studentCollegeId: "",
@@ -62,6 +62,7 @@ export default function Registrar() {
         <div className="col-12 col-sm-8 col-md-6 col-lg-4">
           <div className="card p-4 shadow">
             <h3 className="text-center mb-4">Crear cuenta</h3>
+            
             {error && (
               <div className="alert alert-danger" role="alert">
                 {error}
