@@ -1,8 +1,18 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 export default function Penalizar() {
   const [codigo, setCodigo] = useState("");
   const [usuarioEncontrado, setUsuarioEncontrado] = useState(null);
+    const urlPenalty = "http://localhost:8080/penalties"
+    const [penalties, setPenalties] = useState([]);
+    const [newPenalty, setNewPenalty] = useState({
+        description: "",
+        penaltyDate: "",
+        penaltyType: 0,
+        email: ""
+    })
+
 
   const baseUsuarios = {
     UC123456: "Juan Pérez",
@@ -21,10 +31,45 @@ export default function Penalizar() {
     }
   };
 
-  const penalizarUsuario = () => {
-    alert("Usuario penalizado exitosamente");
-    setUsuarioEncontrado(null);
-    setCodigo("");
+    const cargarItems = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(urlPenalty, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("Resultado de cargar penalizaciones:", response.data);
+      setPenalties(response.data);
+    } catch (error) {
+      if (error.response) {
+        console.error("Error de respuesta:", error.response.data);
+      } else if (error.request) {
+        console.error("No se recibió respuesta:", error.request);
+      } else {
+        console.error("Error al configurar la petición:", error.message);
+      }
+    }
+  };
+
+  const penalizarUsuario = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.post(urlPenalty, newPenalty, {
+        headers: {
+          Authorization: `Bearer ${token}}`,
+        },
+      });
+      setNewPenalty({
+        description: newPenalty.description,
+        penaltyDate: newPenalty.penaltyDate,
+        penaltyType: newPenalty.penaltyType,
+        email: newPenalty.email           
+      });
+      cargarItems(); // Recargar lista
+    } catch (error) {
+      console.error("Error al crear item", error);
+    }
   };
 
   return (
