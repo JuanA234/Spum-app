@@ -5,9 +5,9 @@ export default function MainAuxiliar() {
   return (
     <>
       {/* Header a pantalla completa */}
-      <header className="bg-dark text-white py-3">
+      <header className="bg-primary py-3">
         <div className="d-flex justify-content-between align-items-center container">
-          <h1 className="m-0 text-white fw-bold">SPUM</h1>
+          <h1 className=" text-white fw-bold">🎲SPUM</h1>
           <ul className="nav">
             <li className="nav-item">
               <Link to="/" className="nav-link text-white">

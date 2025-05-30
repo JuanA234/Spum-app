@@ -35,26 +35,26 @@ function App() {
         <Route index element={<Index />} />
         <Route path="login" element={<Login />} />
         <Route path="registro" element={<Registrar />} />
+        <Route path="detalle/:id" element={<Detalle />} />
         {/* Estas son las rutas que queremos proteger */}
         <Route element={<RequireAuth allowedRoles={["STUDENT"]} />}>
           <Route path="juegos" element={<Juegos />} />
-          <Route path="solicitud" element={<Solicitud />} />
+          <Route path="solicitud/:id" element={<Solicitud />} />
           <Route element={<NavbarLayout />}>
             <Route path="inicio" element={<Inicio />} />
             <Route path="prestamos" element={<MisPrestamos />} />
             <Route path="penalizaciones" element={<MisPenalizaciones />} />
-            <Route path="detalle" element={<Detalle />} />
           </Route>
         </Route>
-      </Route>
-      {/* mas rutas a proteger */}
-      <Route path="/auxiliar">
-        <Route index element={<Main />} />
-        <Route path="solicitudes" element={<Solicitudes />} />
-        <Route path="penalizar" element={<Penalizar />} />
-        <Route path="inventario" element={<Inventario />} />
-        <Route path="devolucion" element={<Devolucion />} />
-        <Route path="historial" element={<Historial />} />
+        {/* mas rutas a proteger */}
+        <Route path="/auxiliar" allowedRoles={["ASSISTANT"]}>
+          <Route index element={<Main />} />
+          <Route path="solicitudes" element={<Solicitudes />} />
+          <Route path="penalizar" element={<Penalizar />} />
+          <Route path="inventario" element={<Inventario />} />
+          <Route path="devolucion" element={<Devolucion />} />
+          <Route path="historial" element={<Historial />} />
+        </Route>
       </Route>
       <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
         <Route path="/admin" element={<SideBar />}>
@@ -66,7 +66,7 @@ function App() {
       </Route>
       <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
         <Route path="/admin/usuarios">
-          <Route path="crear" element={<RegisterUser/>} />
+          <Route path="crear" element={<RegisterUser />} />
         </Route>
       </Route>
     </Routes>

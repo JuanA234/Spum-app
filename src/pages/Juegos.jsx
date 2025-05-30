@@ -6,12 +6,34 @@ import axios from "axios";
 
 export default function Juegos() {
   const urlBase = "http://localhost:8080/items";
+  const urlItemType = "http://localhost:8080/categories";
+
   const [items, setItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [types, setTypes] = useState([]);
 
   useEffect(() => {
     cargarItems();
   }, []);
+
+  useEffect(() => {
+    cargarTipos();
+  }, []);
+
+  const cargarTipos = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(urlItemType, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("Resultado de cargarItems:", response.data);
+      setTypes(response.data);
+    } catch (error) {
+      console.error("Error al cargar items:", error);
+    }
+  };
 
   const cargarItems = async () => {
     try {
@@ -21,10 +43,10 @@ export default function Juegos() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Resultado de cargarItems:", response.data);
+      console.log("Resultado de tipos:", response.data);
       setItems(response.data);
     } catch (error) {
-      console.error("Error al cargar items:", error);
+      console.error("Error al cargar los tipos:", error);
     }
   };
 
@@ -50,6 +72,21 @@ export default function Juegos() {
       setItems(resultados);
     } catch (error) {
       console.error("Error al buscar el item:", error);
+      setItems([]);
+    }
+  };
+
+  const handleFilter = async (typeId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`${urlBase}/type/${typeId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setItems(response.data);
+    } catch (error) {
+      console.error("Error al filtrar por tipo:", error);
       setItems([]);
     }
   };
@@ -99,6 +136,34 @@ export default function Juegos() {
 
       <section className="container">
         <h2 className="text-center">Lista de Artículos</h2>
+        <div className="dropdown d-inline">
+          <button
+            type="button"
+            className="btn btn-primary dropdown-toggle btn-sm me-2"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Seleccionar item
+          </button>
+          <ul className="dropdown-menu">
+            <li key="all">
+              <button className="dropdown-item" onClick={cargarItems}>
+                Todos
+              </button>
+            </li>
+            {types.map((type) => (
+              <li key={type.itemTypeId}>
+                <button
+                  className="dropdown-item"
+                  onClick={() => handleFilter(type.itemTypeId)}
+                >
+                  {type.itemTypeName}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         <div className="container mt-5">
           <div className="mb-4">
             <div className="row">
@@ -106,8 +171,7 @@ export default function Juegos() {
                 <div key={index} className="col-md-6 col-lg-4 mb-4">
                   <div className="card h-100">
                     <div style={{ height: "200px", overflow: "hidden" }}>
-                      <img
-                        src={``} // Puedes cambiar esto por item.imageUrl si llega del backend
+                      <img // Puedes cambiar esto por item.imageUrl si llega del backend
                         alt={item.itemName}
                         className="card-img-top"
                         style={{
@@ -120,7 +184,10 @@ export default function Juegos() {
                     <div className="card-body">
                       <h3 className="card-title">{item.itemName}</h3>
                       <p className="card-text">{item.itemDescription}</p>
-                      <Link to="/solicitud" className="btn btn-primary">
+                      <Link
+                        to={`/detalle/${item.itemId}`}
+                        className="btn btn-primary"
+                      >
                         Ver Detalles
                       </Link>
                     </div>

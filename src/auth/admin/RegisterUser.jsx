@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function RegisterUser() {
-  const urlBase = "http://localhost:8080/users";
+  const urlBase = "http://localhost:8080/auth/register-user";
   let navegacion = useNavigate();
 
   const [usuario, setUsuario] = useState({
@@ -33,8 +33,14 @@ export default function RegisterUser() {
     setSuccess("");
 
     try {
-      const response = await axios.post(urlBase, usuario);
+    const token = localStorage.getItem("token"); // 🔐 Obtener token
 
+      const response = await axios.post(urlBase, usuario, {
+        headers: {
+          Authorization: `Bearer ${token}`, // ✅ Agregar token al header
+          "Content-Type": "application/json",
+        },
+      });
       if (response.status === 201) {
         setSuccess(response.data.message);
         setTimeout(() => {
