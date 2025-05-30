@@ -33,11 +33,11 @@ export default function RegisterUser() {
     setSuccess("");
 
     try {
-    const token = localStorage.getItem("token"); // 🔐 Obtener token
+    const token = localStorage.getItem("token");
 
       const response = await axios.post(urlBase, usuario, {
         headers: {
-          Authorization: `Bearer ${token}`, // ✅ Agregar token al header
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });

@@ -46,6 +46,10 @@ export default function MisPrestamos() {
                   <strong>Fecha de Devolución:</strong>{" "}
                   {new Date(prestamo.endTime).toLocaleString()}
                 </p>
+                <p className="card-text">
+                  <strong>estado del prestamo:</strong>{" "}
+                  {prestamo.status}
+                </p>
               </div>
             </div>
           </div>

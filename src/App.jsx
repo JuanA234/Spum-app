@@ -47,7 +47,7 @@ function App() {
           </Route>
         </Route>
         {/* mas rutas a proteger */}
-        <Route path="/auxiliar" allowedRoles={["ASSISTANT"]}>
+        <Route path="/auxiliar" element={<RequireAuth allowedRoles={["ASSISTANT"]}/>}>
           <Route index element={<Main />} />
           <Route path="solicitudes" element={<Solicitudes />} />
           <Route path="penalizar" element={<Penalizar />} />

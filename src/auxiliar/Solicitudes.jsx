@@ -1,38 +1,77 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Solicitudes() {
   const [visibleOptions, setVisibleOptions] = useState(null);
+  const [solicitudes, setSolicitudes] = useState([]);
 
-  const solicitudes = [
-    { nombre: "Juan Pérez", codigo: "UC123456", item: "Juego Uno" },
-    { nombre: "María Gómez", codigo: "UC654321", item: "Ajedrez" },
-    { nombre: "Carlos Rodríguez", codigo: "UC789123", item: "Dominó" },
-    { nombre: "Ana López", codigo: "UC456789", item: "Parqué" },
-  ];
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/bookings/status/IN_PROCESS", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+
+        const solicitudesMapeadas = data.map((item) => ({
+          nombre: `${item.userName} ${item.userLastName}`,
+          codigo: `#${item.bookingId}`,
+          item: item.item,
+          bookingId: item.bookingId, // importante para enviar la actualización
+        }));
+
+        setSolicitudes(solicitudesMapeadas);
+      })
+      .catch((error) => {
+        console.error("Error al obtener solicitudes:", error);
+        if (error.response?.status === 401) {
+          alert("Sesión expirada. Inicia sesión nuevamente.");
+          window.location.href = "/login";
+        }
+      });
+  }, [token]);
 
   const toggleOptions = (index) => {
     setVisibleOptions(visibleOptions === index ? null : index);
   };
 
+  const actualizarEstado = (bookingId, nuevoEstado) => {
+    axios
+      .patch(
+        "http://localhost:8080/bookings/update-status",
+        {
+          bookingId: bookingId,
+          status: nuevoEstado,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log("Estado actualizado:", response.data);
+        // Opcional: quitar la solicitud de la lista una vez procesada
+        setSolicitudes((prev) =>
+          prev.filter((sol) => sol.bookingId !== bookingId)
+        );
+      })
+      .catch((error) => {
+        console.error("Error al actualizar el estado:", error);
+        alert("No se pudo actualizar el estado.");
+      });
+  };
+
   return (
     <div>
-      {/* Header a pantalla completa */}
-      <header className="bg-dark text-white py-3">
+      <header className="bg-primary py-3">
         <div className="d-flex justify-content-between align-items-center container">
-          <h1 className="m-0 text-white fw-bold">SPUM</h1>
-          <ul className="nav">
-            <li className="nav-item">
-              <Link to="/" className="nav-link text-white">
-                Inicio
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/" className="nav-link text-white">
-                Cerrar Sesión
-              </Link>
-            </li>
-          </ul>
+          <h1 className="text-white fw-bold">🎲SPUM</h1>
         </div>
       </header>
 
@@ -43,9 +82,7 @@ export default function Solicitudes() {
             <div className="col-md-6 col-lg-4" key={index}>
               <div className="card shadow-sm h-100">
                 <div className="card-body">
-                  <h5 className="card-title text-primary">
-                    {solicitud.nombre}
-                  </h5>
+                  <h5 className="card-title text-primary">{solicitud.nombre}</h5>
                   <p className="card-text mb-1">
                     <strong>Código:</strong> {solicitud.codigo}
                   </p>
@@ -57,13 +94,17 @@ export default function Solicitudes() {
                     <div className="d-flex justify-content-between">
                       <button
                         className="btn btn-success"
-                    
+                        onClick={() =>
+                          actualizarEstado(solicitud.bookingId, "BOOKED")
+                        }
                       >
                         Aprobar
                       </button>
                       <button
                         className="btn btn-danger"
-                   
+                        onClick={() =>
+                          actualizarEstado(solicitud.bookingId, "CANCELLED")
+                        }
                       >
                         Rechazar
                       </button>
@@ -81,8 +122,15 @@ export default function Solicitudes() {
             </div>
           ))}
         </div>
+
         <div className="text-center mt-4">
-          <Link to="/auxiliar"className="btn text-white" style={{background:"#6610f2"}}>Regresar</Link>
+          <Link
+            to="/auxiliar"
+            className="btn text-white"
+            style={{ background: "#6610f2" }}
+          >
+            Regresar
+          </Link>
         </div>
       </div>
     </div>
