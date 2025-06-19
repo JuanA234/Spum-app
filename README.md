@@ -122,6 +122,7 @@ npm run lint        # Revisa errores de estilo/código
 ## 👨‍💻 Autor
 
 **Juan Andrés Avendaño Luján**
+
 **Arturo Andrés Velasquez Ortíz**
 
 ---
