@@ -1,6 +1,6 @@
 # 🎨 SPUM App (Frontend)
 
-Este es el frontend del sistema **SPUM** (Sistema de Préstamo Universitario de Material), desarrollado en **React** utilizando **Vite** como entorno de desarrollo y construcción. Se comunica con el backend en Spring Boot mediante una API RESTful para gestionar usuarios, estudiantes, artículos, reservas y penalizaciones.
+Este es el frontend del sistema **SPUM** (Sistema de Préstamo de la Universidad del Magdalena), desarrollado en **React** utilizando **Vite** como entorno de desarrollo y construcción. Se comunica con el backend en Spring Boot mediante una API RESTful para gestionar usuarios, estudiantes, artículos, reservas y penalizaciones.
 
 ---
 
